@@ -4,7 +4,9 @@ import { calculateStandings } from '../../src/domain/standings.js';
 import { lineupFitsFormation } from '../../src/domain/lineup.js';
 import { summarizeTransactions } from '../../src/domain/transaction-summary.js';
 
-function player(overrides: Partial<MatchPlayer> & Pick<MatchPlayer, 'id' | 'name' | 'position'>): MatchPlayer {
+function player(
+  overrides: Partial<MatchPlayer> & Pick<MatchPlayer, 'id' | 'name' | 'position'>,
+): MatchPlayer {
   return {
     condition: 'APTO',
     shooting: 0,
@@ -17,7 +19,14 @@ function player(overrides: Partial<MatchPlayer> & Pick<MatchPlayer, 'id' | 'name
 
 const eagles = [
   player({ id: 34, name: 'Otto Rangel', position: 'ATA', shooting: 75 }),
-  player({ id: 31, name: 'Davi Lins', position: 'LAT', condition: 'MAL_CONDICIONADO', dribbling: 74, defending: 66 }),
+  player({
+    id: 31,
+    name: 'Davi Lins',
+    position: 'LAT',
+    condition: 'MAL_CONDICIONADO',
+    dribbling: 74,
+    defending: 66,
+  }),
   player({ id: 30, name: 'Rui Prado', position: 'GOL', defending: 77 }),
   player({ id: 33, name: 'Lauro Neves', position: 'MEI', passing: 82 }),
   player({ id: 32, name: 'Téo Brandão', position: 'ZAG', defending: 84 }),
@@ -70,9 +79,19 @@ describe('partida (RN20)', () => {
 
 describe('arredondamento do meio na condição (RN20)', () => {
   it('50 x 0,85 = 42,5 vira 43', () => {
-    const injured = player({ id: 1, name: 'Ana Dois', position: 'ATA', condition: 'MAL_CONDICIONADO', shooting: 50 });
+    const injured = player({
+      id: 1,
+      name: 'Ana Dois',
+      position: 'ATA',
+      condition: 'MAL_CONDICIONADO',
+      shooting: 50,
+    });
     const outcome = playMatch(
-      { clubId: 1, formation: '2-1-1', lineup: [injured, ...eagles.filter((p) => p.position !== 'ATA')] },
+      {
+        clubId: 1,
+        formation: '2-1-1',
+        lineup: [injured, ...eagles.filter((p) => p.position !== 'ATA')],
+      },
       { clubId: 2, formation: '2-1-1', lineup: delta },
     );
     expect(outcome.duels[0]!.attacker.value).toBe(43);

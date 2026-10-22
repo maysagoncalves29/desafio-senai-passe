@@ -37,6 +37,9 @@ export function calculateMarketValue(input: MarketValueInput): Cents {
     ageAdjustment(input.age) - conditionDiscount(input.condition, input.agility),
     -MAX_DISCOUNT_BASIS_POINTS,
   );
-  const value = roundDiv(input.baseValue * (BASIS_POINTS_TOTAL + totalPercentage), BASIS_POINTS_TOTAL);
+  const value = roundDiv(
+    input.baseValue * (BASIS_POINTS_TOTAL + totalPercentage),
+    BASIS_POINTS_TOTAL,
+  );
   return Math.max(value, MIN_MARKET_VALUE);
 }

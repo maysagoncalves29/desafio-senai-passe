@@ -41,17 +41,20 @@ describe('overall (RN06)', () => {
     ['GOL', [55, 30, 65, 40, 72, 68], 68],
   ];
 
-  it.each(cases)('%s %j => %s', (position, [pace, shooting, passing, dribbling, defending, physical], expected) => {
-    const overall = calculateOverall(position, {
-      pace: pace!,
-      shooting: shooting!,
-      passing: passing!,
-      dribbling: dribbling!,
-      defending: defending!,
-      physical: physical!,
-    });
-    expect(overall).toBe(expected);
-  });
+  it.each(cases)(
+    '%s %j => %s',
+    (position, [pace, shooting, passing, dribbling, defending, physical], expected) => {
+      const overall = calculateOverall(position, {
+        pace: pace!,
+        shooting: shooting!,
+        passing: passing!,
+        dribbling: dribbling!,
+        defending: defending!,
+        physical: physical!,
+      });
+      expect(overall).toBe(expected);
+    },
+  );
 });
 
 describe('valor base (RN06)', () => {
@@ -67,7 +70,10 @@ describe('valor base (RN06)', () => {
     [40, 66, 36, 1.0],
   ];
 
-  it.each(cases)('overall %s, potencial %s, idade %s => %s', (overall, potential, age, expected) => {
-    expect(calculateBaseValue({ overall, potential, age })).toBe(Math.round(expected * 100));
-  });
+  it.each(cases)(
+    'overall %s, potencial %s, idade %s => %s',
+    (overall, potential, age, expected) => {
+      expect(calculateBaseValue({ overall, potential, age })).toBe(Math.round(expected * 100));
+    },
+  );
 });

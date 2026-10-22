@@ -40,7 +40,9 @@ describe('textos', () => {
   });
 
   it('compara nomes ignorando acentos e caixa, com espaço antes do hífen', () => {
-    const sorted = ['Gama SC', 'Épsilon EC', 'Delta FC', 'Ana-Maria', 'Ana Lima'].sort(compareNames);
+    const sorted = ['Gama SC', 'Épsilon EC', 'Delta FC', 'Ana-Maria', 'Ana Lima'].sort(
+      compareNames,
+    );
     expect(sorted).toEqual(['Ana Lima', 'Ana-Maria', 'Delta FC', 'Épsilon EC', 'Gama SC']);
     expect(compareNames('Águias FC', 'Aguias FC')).toBe(0);
   });

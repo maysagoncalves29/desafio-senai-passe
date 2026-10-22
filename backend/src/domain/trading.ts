@@ -2,6 +2,7 @@ import { roundDiv, type Cents } from './money.js';
 import type { ContractStatus } from './types.js';
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
+export const MAX_LOYALTY_DAYS = 1095;
 const FEE_THRESHOLD: Cents = 3000;
 const FEE_PERCENTAGE = 5;
 const MAX_PENALTY: Cents = 1000;
@@ -16,6 +17,11 @@ export function purchaseFee(marketValue: Cents): Cents {
 // O custo pode ser igual à metade do caixa, mas nunca maior; comparar o dobro evita arredondar o limite.
 export function isWithinCashLimit(totalCost: Cents, cash: Cents): boolean {
   return totalCost * 2 <= cash;
+}
+
+export function isLoyaltyDateAllowed(loyaltyUntil: Date, now: Date): boolean {
+  const difference = loyaltyUntil.getTime() - now.getTime();
+  return difference > 0 && difference <= MAX_LOYALTY_DAYS * MS_PER_DAY;
 }
 
 export function remainingDays(loyaltyUntil: Date, now: Date): number {
