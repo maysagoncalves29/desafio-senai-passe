@@ -17,10 +17,6 @@ export function TableBody({ className, ...props }: ComponentProps<'tbody'>) {
   return <tbody className={cn('[&_tr:last-child]:border-0', className)} {...props} />;
 }
 
-export function TableFooter({ className, ...props }: ComponentProps<'tfoot'>) {
-  return <tfoot className={cn('border-t bg-muted-subtle font-medium', className)} {...props} />;
-}
-
 export function TableRow({ className, ...props }: ComponentProps<'tr'>) {
   return (
     <tr className={cn('border-b transition-colors hover:bg-muted/50', className)} {...props} />

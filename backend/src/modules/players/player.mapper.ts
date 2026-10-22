@@ -23,5 +23,3 @@ export function toPlayerResponse(player: Player) {
     club_id: player.clubId,
   };
 }
-
-export type PlayerResponse = ReturnType<typeof toPlayerResponse>;

@@ -15,7 +15,7 @@ export function useAction<Input, Result>(
   const inFlight = useRef(false);
   const { successMessage } = options;
   const mutation = useMutation({
-    mutationFn: action,
+    mutationFn: (input: Input) => action(input),
     onSuccess: (result, input) => {
       if (successMessage) toast.success(successMessage(result, input));
     },

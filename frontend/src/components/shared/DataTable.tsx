@@ -26,7 +26,6 @@ interface DataTableProps<Row> {
   error: Error | null;
   onRetry: () => void;
   emptyMessage: string;
-  footer?: ReactNode;
   label: string;
 }
 
@@ -40,7 +39,6 @@ export function DataTable<Row>({
   error,
   onRetry,
   emptyMessage,
-  footer,
   label,
 }: DataTableProps<Row>) {
   if (error) {
@@ -97,7 +95,6 @@ export function DataTable<Row>({
             </TableRow>
           ))}
       </TableBody>
-      {!isLoading && rows && rows.length > 0 && footer}
     </Table>
   );
 }
