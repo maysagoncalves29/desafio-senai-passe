@@ -57,6 +57,16 @@ export const openApiDocument = {
   },
   servers: [{ url: '/api/v1' }],
   paths: {
+    '/health': {
+      get: {
+        tags: ['Sistema'],
+        summary: 'Verifica se a API e o banco estão respondendo',
+        responses: ok({
+          type: 'object',
+          properties: { status: { type: 'string', example: 'ok' } },
+        }),
+      },
+    },
     '/players': {
       get: {
         tags: ['Jogadores'],

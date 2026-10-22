@@ -3,6 +3,7 @@ import express, { Router, type Express } from 'express';
 import type { PrismaClient } from '@prisma/client';
 import type { Logger } from 'pino';
 import { createErrorHandler, notFoundHandler } from './middlewares/error-handler.js';
+import { createHealthRouter } from './modules/health/health.routes.js';
 import { createRequestLogger } from './middlewares/request-logger.js';
 import { ClubService } from './modules/clubs/club.service.js';
 import { createClubRouter } from './modules/clubs/club.routes.js';
@@ -45,6 +46,7 @@ export function createApp({ prisma, clock, logger, frontendOrigin }: AppDependen
   app.use(createRequestLogger(logger));
 
   const api = Router();
+  api.use('/health', createHealthRouter(prisma));
   api.use('/players', createPlayerRouter(new PlayerService(prisma)));
   api.use(
     createMarketRouter(new MarketService(prisma, clock), new TransactionHistoryService(prisma)),
