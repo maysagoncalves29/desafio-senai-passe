@@ -37,7 +37,7 @@ export function MatchesPage() {
   const matches = useMatchesQuery(clubFilter === '' ? undefined : Number(clubFilter));
 
   return (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <PageHeader
         title="Partidas"
         description="Escolha dois clubes com escalação completa. O placar sai de 6 duelos entre os titulares, sem sorteio."

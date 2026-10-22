@@ -18,7 +18,7 @@ export function slotLabels(sectors: LineupSector[]): string[] {
 
 // Distribui os jogadores já escolhidos pelas vagas da formação, na ordem das vagas.
 export function assignSlots(formation: Formation, chosen: Player[]): string[] {
-  const available = [...chosen];
+  const available = chosen.filter((player) => player.condition !== 'DOENTE');
   return lineupSlots(formation).map((sector) => {
     const index = available.findIndex((player) =>
       SECTOR_POSITIONS[sector].includes(player.position),

@@ -13,7 +13,7 @@ export function MatchDetailPage() {
   const match = useMatchQuery(Number(matchId));
 
   return (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <Link
         to="/partidas"
         className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'w-fit')}

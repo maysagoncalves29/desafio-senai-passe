@@ -40,7 +40,7 @@ export function StandingsPage() {
   const standings = useStandingsQuery();
 
   return (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <PageHeader
         title="Classificação"
         description="Pontos (vitória 3, empate 1), saldo de gols, gols marcados e nome do clube, nessa ordem de desempate."

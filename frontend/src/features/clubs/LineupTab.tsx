@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertTriangle } from 'lucide-react';
+import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import type { ClubDetail, Lineup } from '@/api/types';
 import { ConditionBadge } from '@/components/shared/ConditionBadge';
@@ -21,7 +22,6 @@ function LineupEditor({ club, lineup }: { club: ClubDetail; lineup: Lineup }) {
   const { run, isPending } = useSaveLineup();
   const initialFormation = lineup.formation ?? DEFAULT_FORMATION;
   const {
-    register,
     handleSubmit,
     control,
     setValue,
@@ -38,11 +38,24 @@ function LineupEditor({ club, lineup }: { club: ClubDetail; lineup: Lineup }) {
   const slotValues = useWatch({ control, name: 'slots' });
   const sectors = lineupSlots(formation);
   const labels = slotLabels(sectors);
+  const [pool, setPool] = useState<string[]>(() => slotValues.filter(Boolean));
 
+  function chooseStarter(index: number, playerId: string) {
+    setValue(`slots.${index}`, playerId, { shouldValidate: true });
+  }
+
+  // Guarda também os titulares que não cabem na formação atual, para voltarem se ela for revertida.
   function changeFormation(next: Formation) {
-    const chosenPlayers = club.players.filter((player) => slotValues.includes(String(player.id)));
+    const ordered = [
+      ...slotValues.filter(Boolean),
+      ...pool.filter((id) => !slotValues.includes(id)),
+    ];
+    const candidates = ordered.flatMap((id) =>
+      club.players.filter((player) => String(player.id) === id),
+    );
+    setPool(ordered);
     setValue('formation', next, { shouldValidate: true });
-    setValue('slots', assignSlots(next, chosenPlayers), { shouldValidate: false });
+    setValue('slots', assignSlots(next, candidates));
   }
 
   return (
@@ -102,7 +115,8 @@ function LineupEditor({ club, lineup }: { club: ClubDetail; lineup: Lineup }) {
               <Select
                 id={slotId}
                 aria-invalid={Boolean(errors.slots?.[index])}
-                {...register(`slots.${index}`)}
+                value={slotValues[index] ?? ''}
+                onChange={(event) => chooseStarter(index, event.target.value)}
               >
                 <option value="">Selecione o titular…</option>
                 {options.map((player) => (

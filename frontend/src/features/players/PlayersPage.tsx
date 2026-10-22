@@ -141,7 +141,7 @@ export function PlayersPage() {
   ];
 
   return (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <PageHeader
         title="Jogadores"
         description="Cadastro, condição física, valor de mercado e compra de jogadores livres."

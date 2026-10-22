@@ -39,7 +39,7 @@ export function ClubPage() {
   const data = club.data;
 
   return (
-    <div className="grid gap-5">
+    <div className="grid grid-cols-1 gap-5">
       <PageHeader
         title={data?.name ?? 'Clube'}
         description="Caixa, elenco com contratos, escalação e histórico de transações."

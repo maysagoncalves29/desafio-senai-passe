@@ -58,7 +58,7 @@ export function ClubsPage() {
   }
 
   return (
-    <div className="grid gap-4">
+    <div className="grid grid-cols-1 gap-4">
       <PageHeader
         title="Clubes"
         description="Caixa, valor do elenco e patrimônio de cada clube da liga."
