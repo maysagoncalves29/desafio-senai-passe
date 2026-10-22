@@ -15,5 +15,5 @@
     "rootDir": ".",
     "types": ["node"]
   },
-  "include": ["src", "tests", "prisma", "vitest.config.ts", "eslint.config.js"]
+  "include": ["src", "tests", "prisma", "prisma.config.ts", "vitest.config.ts", "eslint.config.js"]
 }
