@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import type { ClubDetail, Lineup } from '@/api/types';
 import { ConditionBadge } from '@/components/shared/ConditionBadge';
+import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { FormField } from '@/components/shared/FormField';
 import { Alert, Skeleton } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
@@ -179,17 +180,7 @@ export function LineupTab({ club, clubId }: LineupTabProps) {
   const lineup = useLineupQuery(clubId);
 
   if (lineup.error) {
-    return (
-      <Alert variant="destructive">
-        <AlertTriangle className="mt-0.5 size-4 shrink-0" />
-        <div className="flex flex-1 flex-wrap items-center justify-between gap-2">
-          <span>{lineup.error.message}</span>
-          <Button variant="outline" size="sm" onClick={() => void lineup.refetch()}>
-            Tentar novamente
-          </Button>
-        </div>
-      </Alert>
-    );
+    return <ErrorMessage message={lineup.error.message} onRetry={() => void lineup.refetch()} />;
   }
 
   if (!lineup.data || !club) {

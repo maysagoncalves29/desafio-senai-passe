@@ -1,7 +1,8 @@
 import { ArrowLeft } from 'lucide-react';
 import { Link, useParams } from 'react-router';
+import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { Alert, Skeleton } from '@/components/ui/alert';
+import { Skeleton } from '@/components/ui/alert';
 import { buttonVariants } from '@/components/ui/button-variants';
 import { useMatchQuery } from '@/hooks/useLeague';
 import { formatDateTime } from '@/lib/format';
@@ -20,7 +21,9 @@ export function MatchDetailPage() {
       >
         <ArrowLeft /> Voltar para partidas
       </Link>
-      {match.error && <Alert variant="destructive">{match.error.message}</Alert>}
+      {match.error && (
+        <ErrorMessage message={match.error.message} onRetry={() => void match.refetch()} />
+      )}
       {match.isPending && <Skeleton className="h-48 w-full" />}
       {match.data && (
         <>

@@ -1,9 +1,9 @@
 import { ArrowLeft } from 'lucide-react';
 import { Link, useParams } from 'react-router';
 import { ClubAvatar } from '@/components/shared/ClubAvatar';
+import { ErrorMessage } from '@/components/shared/ErrorMessage';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { StatCard } from '@/components/shared/StatCard';
-import { Alert } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/button-variants';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -29,9 +29,7 @@ export function ClubPage() {
         >
           <ArrowLeft /> Voltar para clubes
         </Link>
-        <Alert variant="destructive">
-          <span>{club.error.message}</span>
-        </Alert>
+        <ErrorMessage message={club.error.message} onRetry={() => void club.refetch()} />
       </div>
     );
   }

@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
-import { AlertCircle } from 'lucide-react';
-import { Alert, Skeleton } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/alert';
 import {
   Table,
   TableBody,
@@ -11,6 +9,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
+import { ErrorMessage } from './ErrorMessage';
 
 export interface Column<Row> {
   header: string;
@@ -42,17 +41,7 @@ export function DataTable<Row>({
   label,
 }: DataTableProps<Row>) {
   if (error) {
-    return (
-      <Alert variant="destructive" className="m-4">
-        <AlertCircle className="mt-0.5 size-4 shrink-0" />
-        <div className="flex flex-1 flex-wrap items-center justify-between gap-2">
-          <span>{error.message}</span>
-          <Button variant="outline" size="sm" onClick={onRetry}>
-            Tentar novamente
-          </Button>
-        </div>
-      </Alert>
-    );
+    return <ErrorMessage message={error.message} onRetry={onRetry} className="m-4" />;
   }
 
   return (
